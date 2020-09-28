@@ -1,0 +1,39 @@
+{
+  "name": "chrome-upload",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service build --mode development --watch",
+    "build": "vue-cli-service build",
+    "build:crx": "npm run build && node src/utils/crx.js",
+    "lint": "vue-cli-service lint",
+    "analyze": "npm run build --report",
+    "commit": "git-cz && git push",
+    "release": "release-it",
+    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -r 0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "core-js": "^3.4.3",
+    "element-ui": "^2.13.0",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-component": "^1.1.1",
+    "commitizen": "^4.0.3",
+    "conventional-changelog-cli": "^2.0.28",
+    "conventional-changelog-custom-config": "^0.2.0",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "release-it": "^12.4.3",
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0",
+    "vue-cli-plugin-browser-extension": "^0.24.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
