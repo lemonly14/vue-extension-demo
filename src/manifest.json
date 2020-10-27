@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Backfill",
+  "name": "demo",
   "version":"1.0.1",
   "homepage_url": "http://localhost:8080/",
   "description": "A Vue Browser Extension",

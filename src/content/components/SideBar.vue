@@ -1,45 +1,21 @@
 <template>
   <div class="z-upload-container">
     <el-button type="primary"
-               @click="drawer = true">上传<i class="el-icon-upload el-icon--right"></i></el-button>
+               @click="drawer = true">查看页面图片<i class="el-icon-upload el-icon--right"></i></el-button>
 
-    <el-drawer title="图片上传"
+    <el-drawer title="查看页面图片"
                :visible.sync="drawer"
                :show-close="false"
                :modal="false"
                :direction="direction"
-               :with-header="false"
-               :before-close="handleClose">
-
-      <div style="padding: 20px"
-           v-if="drawer">
-        <el-upload multiple
-                   action="https://jsonplaceholder.typicode.com/posts/"
-                   list-type="picture-card"
-                   :on-change="handleImgSuccess"
-                   :on-preview="handlePictureCardPreview"
-                   :on-remove="handleRemove"
-                   :auto-upload="false">
-          <i class="el-icon-plus"></i>
-        </el-upload>
-
-        <el-dialog :visible.sync="dialogVisible"
-                   :modal-append-to-body="false">
-          <el-carousel trigger="click"
-                       height="550px">
-            <el-carousel-item v-for="item in srcList"
-                              :key="item">
-              <img style="background-size: cover;"
-                   width="100%"
-                   height="100%"
-                   :src="item"
-                   alt="">
-            </el-carousel-item>
-          </el-carousel>
-        </el-dialog>
-
+               :with-header="false">
+      <div class="block">
+        <el-image style="width: 100px; height: 100px"
+                  :src="img"
+                  fit="fill"
+                  v-for="(img,index) in imgList"
+                  :key="index"></el-image>
       </div>
-
     </el-drawer>
   </div>
 </template>
@@ -47,43 +23,25 @@
 <script>
 export default {
   name: "SideBar",
+  props: {
+    imgList: {
+      type: Array,
+      default() { }
+    }
+  },
   data() {
     return {
       drawer: false,
       direction: 'rtl',
       dialogImageUrl: '',
-      dialogVisible: false,
       disabled: false,
-      srcList: []
     }
   },
+  mounted() {
+    console.log('imgList', this.imgList)
+  },
   methods: {
-    handleImgSuccess(res, file) {
-      // browser 返回的都是 Promise
-      const sending = browser.runtime.sendMessage({ content: "图片上传成功", type: 'upload' });
-      sending.then(this.handleResponse, this.handleError);
-      this.srcList.push(res.url)
-      // document.getElementById('kw').value = "测试获取 dom 并修改 input 框数据"
-    },
-    handleClose(done) {
-      this.srcList = []
-      done();
-    },
-    handleRemove(file) {
-      console.log(file);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogVisible = true;
-    },
-    handleResponse(message) {
-      console.log(`background script sent a response: ${message.response}`);
-    },
-    handleError(error) {
-      console.log(`Error: ${error}`);
-    },
-    handleDownload(file) {
-      console.log(file);
-    }
+
   }
 };
 </script>
@@ -95,6 +53,9 @@ export default {
       width: 180px;
       height: 90px;
     }
+  }
+  .el-image{
+    padding: 10px;
   }
 }
 </style>
